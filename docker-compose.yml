@@ -1,0 +1,23 @@
+version: '3'
+services:
+  # loopback:
+  #  container_name: generator-loopback
+  #  build: './loopback'
+  #  ports:
+  #   - '3100:3100'
+  websocket:
+    container_name: generator-websocket
+    build: './websocket'
+    # depends_on:
+    #  - 'loopback'
+    ports:
+     - '3000:3000'
+     - '3001:3001'
+  angular:
+    container_name: generator-angular
+    build: './angular'
+    depends_on:
+     - 'websocket'
+    ports:
+     - '4200:4200'
+
