@@ -1,23 +1,34 @@
 version: '3'
 services:
-  # loopback:
-  #  container_name: generator-loopback
-  #  build: './loopback'
-  #  ports:
-  #   - '3100:3100'
-  websocket:
-    container_name: generator-websocket
-    build: './websocket'
-    # depends_on:
-    #  - 'loopback'
+  loopback:
+    container_name: generator-loopback
+    build: './loopback'
     ports:
-     - '3000:3000'
-     - '3001:3001'
-  angular:
-    container_name: generator-angular
-    build: './angular'
-    depends_on:
-     - 'websocket'
-    ports:
-     - '4200:4200'
-
+     - '3100:3100'
+    environment: 
+      - POSTGRES_USERNAME=ginger
+      - POSTGRES_PASSWORD=source32
+      - POSTGRES_DATABASE=mimic
+      - POSTGRES_PORT=5432
+  # websocket:
+  #   container_name: generator-websocket
+  #   build: './websocket'
+  #   depends_on:
+  #     - 'loopback'
+  #   ports:
+  #    - '3000:3000'
+  #    - '3001:3001'
+  #   networks:
+  #    - websocket_network 
+  # angular:
+  #   container_name: generator-angular
+  #   build: './angular'
+  #   depends_on:
+  #    - 'websocket'
+  #   ports:
+  #    - '4200:4200'
+  #   networks:
+  #    - websocket_network
+# networks:
+#   websocket_network:
+#     driver: bridge
